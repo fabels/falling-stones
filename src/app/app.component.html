@@ -1,13 +1,13 @@
 <div class="gamefield-container">
 
-  <h1>{{ 'falling stones' }}</h1>
+  <h1>{{ 'title' | translate }}</h1>
 
   <div class="gamefield-menu"
        [style.width.px]="getGamefieldWidth()">
-    <div class="points">{{ 'points' }}: {{ points }}</div>
 
+    <div class="points">{{ 'points' | translate }}: {{ points }}</div>
 
-    <button (click)="startGame()">neustart</button>
+    <button (click)="startGame()">{{ 'restart' | translate}}</button>
   </div>
 
   <div class="gamefield"
@@ -74,7 +74,7 @@
 <ng-container *ngIf="gameover">
   <div class="gameover-background"> </div>
   <div class="gameover-container">
-    <h1>Game Over</h1>
-    <button (click)="startGame()">neustart</button>
+    <h1>{{ 'gameover' | translate }}</h1>
+    <button (click)="startGame()">{{ 'restart' | translate }}</button>
   </div>
 </ng-container>

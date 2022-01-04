@@ -125,15 +125,11 @@ export class AppComponent implements OnInit {
     }, 250);
   }
 
-
-
   private mergedStoneClicked(linkedStones: Stone[]): void {
     this.points += linkedStones.length * this.mergeLimit;
     linkedStones.forEach(s => s.color = this.colors.free);
     this.render();
   }
-
-
 
   private fillUpGamefield(): void {
     this._gamefield = this._gamefield.map(s => s.color === this.colors.free ? ({ color: this.getRandomColor(), points: 1, animation: Animation.spawn }) : s);
