@@ -1,0 +1,64 @@
+.gamefield-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.gamefield-menu {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.points {
+    font-size: 17px;
+}
+
+.gamefield {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+}
+
+.block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.block > div {
+    user-select: none;
+}
+
+.github-logo {
+    margin-top: 10px;
+}
+
+.gameover-background {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100vh; 
+    background-color: black; 
+    opacity: 0.5;
+}
+
+.gameover-container {
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%); 
+    background-color: black; 
+    border-radius: 15px; 
+    padding: 15px; 
+    text-align: center;
+}
