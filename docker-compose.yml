@@ -1,0 +1,7 @@
+version: "3.3"
+services:
+  snake:
+    restart: always
+    image: gummelhummel/falling-stones
+    ports:
+      - "8057:80"

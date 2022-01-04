@@ -16,15 +16,15 @@ import { BehaviorSubject } from 'rxjs';
 export class AppComponent implements OnInit {
 
   gamefield = new BehaviorSubject<Stone[]>([]);
-  blockSize = 60;
+  blockSize = 70;
   blockMargin = 1;
   blockBorderWidth = 0;
   points = 0;
   gameover = false;
 
   private _gamefield!: Stone[];
-  private cols = 5;
-  private rows = 5;
+  private cols = 6;
+  private rows = 6;
   private mergeLimit = 50;
   private colors = {
     yellow: '#DBE000',

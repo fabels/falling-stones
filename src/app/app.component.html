@@ -17,6 +17,7 @@
     <ng-container *ngFor="let stone of gamefield | async; let index = index">
 
       <div class="block"
+           (click)="stoneClicked(stone)"
            [@slideInDownOnEnter]
            *ngIf="isFalling(stone)"
            [style.width.px]="blockSize"
@@ -24,14 +25,14 @@
            [style.margin.px]="blockMargin"
            [style.borderWidth.px]="blockBorderWidth"
            [style.backgroundColor]="stone.color"
-           [style.borderRadius]="getBorderRadius(stone)"
-           [id]="index">
+           [style.borderRadius]="getBorderRadius(stone)">
         <div *ngIf="stone.points > 1">
           {{ stone.points }}
         </div>
       </div>
 
       <div class="block"
+           (click)="stoneClicked(stone)"
            [@zoomInOnEnter]
            *ngIf="isSpawning(stone)"
            [style.width.px]="blockSize"
@@ -39,8 +40,7 @@
            [style.margin.px]="blockMargin"
            [style.borderWidth.px]="blockBorderWidth"
            [style.backgroundColor]="stone.color"
-           [style.borderRadius]="getBorderRadius(stone)"
-           [id]="index">
+           [style.borderRadius]="getBorderRadius(stone)">
       </div>
 
       <div class="block"
@@ -51,8 +51,7 @@
            [style.margin.px]="blockMargin"
            [style.borderWidth.px]="blockBorderWidth"
            [style.backgroundColor]="stone.color"
-           [style.borderRadius]="getBorderRadius(stone)"
-           [id]="index">
+           [style.borderRadius]="getBorderRadius(stone)">
         <div *ngIf="stone.points > 1">
           {{ stone.points }}
         </div>
