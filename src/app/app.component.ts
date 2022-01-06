@@ -93,15 +93,16 @@ export class AppComponent implements OnInit {
     }
 
     const index = this._gamefield.findIndex(s => s === stone);
-    const points = linkedStones?.map(s => s.points)?.reduce((s1, s2) => s1 + s2, 0) || 0;
+    const calculatedPoints = linkedStones?.map(s => s.points)?.reduce((s1, s2) => s1 + s2, 0) || 0;
+    const points = calculatedPoints > this.mergeLimit ? this.mergeLimit : calculatedPoints;
     this.points += points;
-    this._gamefield[index] = { ...stone, points };
+    const color = points >= this.mergeLimit ? this.colors.blue : stone.color;
+    this._gamefield[index] = { ...stone, points, color };
 
     linkedStones?.filter(s => s !== stone)
       .forEach(s => s.color = this.colors.free);
 
     this.render();
-    this.checkForMerge();
   }
 
   private subscribeToRenderEvents(): void {
@@ -133,10 +134,6 @@ export class AppComponent implements OnInit {
 
   private fillUpGamefield(): void {
     this._gamefield = this._gamefield.map(s => s.color === this.colors.free ? ({ color: this.getRandomColor(), points: 1, animation: Animation.spawn }) : s);
-  }
-
-  private checkForMerge(): void {
-    this._gamefield = this._gamefield.map(s => s.points >= this.mergeLimit && s.color !== this.colors.blue ? ({ color: this.colors.blue, points: this.mergeLimit, animation: Animation.present }) : s);
   }
 
   private fallingStones(): void {
