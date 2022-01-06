@@ -81,8 +81,8 @@ export class AppComponent implements OnInit {
 
   stoneClicked(stone: Stone): void {
     const linkedStones = this.getLinkedStones(stone);
-    const notEnoughStonesLinkes = linkedStones && linkedStones?.length < 2;
-    if (notEnoughStonesLinkes) {
+    const notEnoughStonesLinked = linkedStones && linkedStones?.length <= 2;
+    if (notEnoughStonesLinked) {
       return;
     }
 
@@ -136,7 +136,7 @@ export class AppComponent implements OnInit {
   }
 
   private checkForMerge(): void {
-    this._gamefield = this._gamefield.map(s => s.points >= this.mergeLimit ? ({ color: this.colors.blue, points: this.mergeLimit, animation: Animation.present }) : s);
+    this._gamefield = this._gamefield.map(s => s.points >= this.mergeLimit && s.color !== this.colors.blue ? ({ color: this.colors.blue, points: this.mergeLimit, animation: Animation.present }) : s);
   }
 
   private fallingStones(): void {
