@@ -16,15 +16,15 @@ import { BehaviorSubject } from 'rxjs';
 export class AppComponent implements OnInit {
 
   gamefield = new BehaviorSubject<Stone[]>([]);
-  blockSize = 70;
+  blockSize = 40;
   blockMargin = 1;
   blockBorderWidth = 0;
   points = 0;
   gameover = false;
+  rows = 8;
+  cols = 8;
 
   private _gamefield!: Stone[];
-  private cols = 6;
-  private rows = 6;
   private mergeLimit = 50;
   private colors = {
     yellow: '#DBE000',
@@ -36,7 +36,34 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.startGame();
-    this.subscribeToRenderEvents();
+  }
+
+  toggleSettings(settings: HTMLDivElement): void {
+    settings.style.display = settings.style.display === 'none' ? 'block' : 'none';
+  }
+
+  increaseBlockSize(): void {
+    this.blockSize += 10;
+  }
+
+  decreaseBlockSize(): void {
+    if (this.blockSize > 10) {
+      this.blockSize -= 10;
+    }
+  }
+
+  increaseGamefield(): void {
+    this.rows += 1;
+    this.cols += 1;
+    this.startGame();
+  }
+
+  decreaseGamefield(): void {
+    if (this.rows > 1) {
+      this.rows -= 1;
+      this.cols -= 1;
+      this.startGame();
+    }
   }
 
   getGamefieldWidth(): number {
@@ -62,6 +89,7 @@ export class AppComponent implements OnInit {
   }
 
   startGame(): void {
+    this.points = 0;
     this.gameover = false;
     this._gamefield = this.createGamefield();
     this.render();
@@ -105,15 +133,13 @@ export class AppComponent implements OnInit {
     this.render();
   }
 
-  private subscribeToRenderEvents(): void {
-    this.gamefield.subscribe(gamefield => {
-      for (let i = 0; i < gamefield.length; i++) {
-        if ((this.getLinkedStones(gamefield[i])?.length || 0) > 2) {
-          return;
-        }
+  private isGameOver(): boolean {
+    for (let i = 0; i < this._gamefield.length; i++) {
+      if ((this.getLinkedStones(this._gamefield[i])?.length || 0) > 2) {
+        return false;
       }
-      this.gameover = true;
-    });
+    }
+    return true
   }
 
   private render(): void {
@@ -122,6 +148,9 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.fillUpGamefield();
       this.gamefield.next(this._gamefield);
+      if (this.isGameOver()) {
+        this.gameover = true;
+      }
       setTimeout(() => this._gamefield.forEach(s => s.animation = Animation.present), 250);
     }, 250);
   }

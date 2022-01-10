@@ -6,8 +6,33 @@
        [style.width.px]="getGamefieldWidth()">
 
     <div class="points">{{ 'points' | translate }}: {{ points }}</div>
+    <div>
+      <button (click)="toggleSettings(settings)"
+              class="button button-xl mdi mdi-tune">
 
-    <button (click)="startGame()">{{ 'restart' | translate}}</button>
+      </button>
+      <div #settings
+           class="settings">
+
+        <div>
+          <i (click)="increaseBlockSize()"
+             class="mdi mdi-plus cursor-pointer"></i> /
+          <i (click)="decreaseBlockSize()"
+             class="mdi mdi-minus cursor-pointer"></i> {{ blockSize / 10 }} Blockgröße
+        </div>
+
+        <div>
+          <i (click)="increaseGamefield()"
+             class="mdi mdi-plus cursor-pointer"></i> /
+          <i (click)="decreaseGamefield()"
+             class="mdi mdi-minus cursor-pointer"></i> {{ rows }} Spielfeldgröße
+        </div>
+      </div>
+
+      <button class="button button-xl mdi mdi-reload"
+              (click)="startGame()">
+      </button>
+    </div>
   </div>
 
   <div class="gamefield"
@@ -74,6 +99,8 @@
   <div class="gameover-background"> </div>
   <div class="gameover-container">
     <h1>{{ 'gameover' | translate }}</h1>
-    <button (click)="startGame()">{{ 'restart' | translate }}</button>
+    <button class="button mdi mdi-reload"
+            (click)="startGame()">
+    </button>
   </div>
 </ng-container>

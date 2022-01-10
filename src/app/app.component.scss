@@ -15,6 +15,30 @@
     align-items: center;
 }
 
+.settings {
+    position: absolute; 
+    margin-top: 10px;
+    padding: 5px; 
+    background-color: black; 
+    border-radius: 5px; 
+    border: 1px solid whitesmoke;
+    text-align: left;
+    cursor: default;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.button {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+.button-xl{
+    font-size: larger;
+}
+
 .points {
     font-size: 17px;
 }
@@ -62,4 +86,12 @@
     border-radius: 15px; 
     padding: 15px; 
     text-align: center;
+}
+
+.cursor-default {
+    cursor: default;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
