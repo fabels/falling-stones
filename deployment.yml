@@ -1,0 +1,58 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: falling-stones-ingress
+  namespace: games
+spec:
+  rules:
+    - host: falling-stones.if-then-els.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: falling-stones
+                port:
+                  name: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: falling-stones
+  namespace: games
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: web
+
+  selector:
+    app: falling-stones
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: falling-stones
+  namespace: games
+  labels:
+    app: falling-stones
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: falling-stones
+  template:
+    metadata:
+      labels:
+        app: falling-stones
+    spec:
+      containers:
+        - name: falling-stones
+          image: gummelhummel/falling-stones
+          ports:
+            - name: web
+              containerPort: 80
+      imagePullSecrets:
+        - name: dockerhub
